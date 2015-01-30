@@ -65,10 +65,9 @@ TaskListStore.prototype = {
     }
 };
 
-var TodoApp = function(element, taskContainer, taskList, store) {
+var TodoApp = function(element, taskList, store) {
     this.element = element;
     this.taskList = taskList;
-    this.taskContainer = taskContainer;
     this.store = store;
 };
 
@@ -78,6 +77,10 @@ TodoApp.prototype = {
         this.setupEvents();
     },
     renderTasks: function() {
+        if (!this.taskContainer) {
+            this.element.innerHTML += '<div id="task-list"></div>';
+            this.taskContainer = document.getElementById('task-list');
+        }
         var tasks = this.taskList.tasks;
         this.taskContainer.innerHTML = '<h2>'+this.taskList.name+'</h2>';
         if (tasks.length === 0) {
