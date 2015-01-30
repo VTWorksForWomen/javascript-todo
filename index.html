@@ -13,7 +13,6 @@
             <form id="task-form">
                 <input type="text" name="task_name" id="task_name" placeholder="Type to add new tasks" />
             </form>        
-            <h2>Tasks</h2>
             <div id="task-list">
                 <p>Your task list is empty. Add a task!</p>
             </div>
@@ -24,7 +23,7 @@
     var store = new TaskListStore('tasks');
     var taskList = store.load('tasks');
     if (!taskList) {
-        taskList = new TaskList();
+        taskList = new TaskList('Things that need Doin');
     }
     var appElement = document.getElementById('todo-app');
     var taskContainer = document.getElementById('task-list');

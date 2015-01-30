@@ -12,7 +12,8 @@ Task.prototype = {
     createdAt: null
 };
 
-function TaskList() {
+function TaskList(name) {
+    this.name = name;
     this.tasks = [];
 }
 
@@ -40,20 +41,23 @@ function TaskListStore(key) {
 
 TaskListStore.prototype = {
     save: function(taskList) {
-        var data = JSON.stringify(taskList.tasks);
-        window.localStorage.setItem(this.key, data);
+        var data = {
+            name: taskList.name,
+            tasks: taskList.tasks
+        };
+        window.localStorage.setItem(this.key, JSON.stringify(data));
     },
     load: function() {
-        var taskData = window.localStorage.getItem(this.key);
-        if (!taskData) {
+        var data = window.localStorage.getItem(this.key);
+        if (!data) {
             return false;
         }
 
-        var taskList = new TaskList();
-        var taskData = JSON.parse(taskData);
-        for (var i = 0; i < taskData.length; i++) {
-            var task = new Task(taskData[i].name);
-            task.isComplete = taskData[i].isComplete;
+        var data = JSON.parse(data);
+        var taskList = new TaskList(data.name);
+        for (var i = 0; i < data.tasks.length; i++) {
+            var task = new Task(data.tasks[i].name);
+            task.isComplete = data.tasks[i].isComplete;
             taskList.add(task);
         }
 
@@ -75,9 +79,9 @@ TodoApp.prototype = {
     },
     renderTasks: function() {
         var tasks = this.taskList.tasks;
-        this.taskContainer.innerHTML = '';
+        this.taskContainer.innerHTML = '<h2>'+this.taskList.name+'</h2>';
         if (tasks.length === 0) {
-            this.taskContainer.innerHTML = '<p>There are no tasks. Add one!</p>';
+            this.taskContainer.innerHTML += '<p>There are no tasks. Add one!</p>';
         }
         for (var i = 0; i < tasks.length; i++) {
             this.taskContainer.innerHTML += this.buildTaskHtml(tasks[i]);
