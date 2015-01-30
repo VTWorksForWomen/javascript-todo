@@ -141,5 +141,4 @@ TodoApp.prototype = {
         this.renderTasks();
         form.reset();
     }
-
 };
