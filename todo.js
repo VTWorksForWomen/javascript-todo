@@ -34,32 +34,38 @@ TaskList.prototype = {
     }
 };
 
-function saveTaskList(key, taskList) {
-    var data = JSON.stringify(taskList.tasks);
-    window.localStorage.setItem(key, data);
+function TaskListStore(key) {
+    this.key = key;
 }
 
-function loadTaskList(key) {
-    var taskData = window.localStorage.getItem('tasks');
-    if (!taskData) {
-        return false;
+TaskListStore.prototype = {
+    save: function(taskList) {
+        var data = JSON.stringify(taskList.tasks);
+        window.localStorage.setItem(this.key, data);
+    },
+    load: function() {
+        var taskData = window.localStorage.getItem(this.key);
+        if (!taskData) {
+            return false;
+        }
+
+        var taskList = new TaskList();
+        var taskData = JSON.parse(taskData);
+        for (var i = 0; i < taskData.length; i++) {
+            var task = new Task(taskData[i].name);
+            task.isComplete = taskData[i].isComplete;
+            taskList.add(task);
+        }
+
+        return taskList;
     }
+};
 
-    var taskList = new TaskList();
-    var taskData = JSON.parse(taskData);
-    for (var i = 0; i < taskData.length; i++) {
-        var task = new Task(taskData[i].name);
-        task.isComplete = taskData[i].isComplete;
-        taskList.add(task);
-    }
-
-    return taskList;
-}
-
-var TodoApp = function(element, taskContainer, taskList) {
+var TodoApp = function(element, taskContainer, taskList, store) {
     this.element = element;
     this.taskList = taskList;
     this.taskContainer = taskContainer;
+    this.store = store;
 };
 
 TodoApp.prototype = {
@@ -107,7 +113,7 @@ TodoApp.prototype = {
         });
     },
     save: function() {
-        saveTaskList('tasks', this.taskList);
+        this.store.save(this.taskList);
     },
     onToggleTaskComplete: function(event) {
         var checkbox = event.target;
@@ -138,13 +144,14 @@ TodoApp.prototype = {
 
 };
 
-var taskList = loadTaskList('tasks');
+var store = new TaskListStore('tasks');
+var taskList = store.load('tasks');
 if (!taskList) {
     taskList = new TaskList();
 }
 
 var appElement = document.getElementById('todo-app');
 var taskContainer = document.getElementById('task-list');
-var app = new TodoApp(appElement, taskContainer, taskList);
+var app = new TodoApp(appElement, taskContainer, taskList, store);
 
 app.render();
