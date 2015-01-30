@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="styles.css" rel="stylesheet" type="text/css" />
+        <style>
+            .is-complete { text-decoration: line-through; font-style: italic; color: #333; }
+        </style>
+    </head>
+    <body>
+        <h1>iDo</h1>
+        <p>Telling you what to do</p>
+        <div id="todo-app">
+            <form id="task-form">
+                <input type="text" name="task_name" id="task_name" placeholder="Type to add new tasks" />
+            </form>        
+            <h2>Tasks</h2>
+            <div id="task-list">
+                <p>Your task list is empty. Add a task!</p>
+            </div>
+        </div>
+        
+        <script src="todo.js"></script>
+    </body>
+</html>
