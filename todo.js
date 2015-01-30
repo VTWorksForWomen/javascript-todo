@@ -143,15 +143,3 @@ TodoApp.prototype = {
     }
 
 };
-
-var store = new TaskListStore('tasks');
-var taskList = store.load('tasks');
-if (!taskList) {
-    taskList = new TaskList();
-}
-
-var appElement = document.getElementById('todo-app');
-var taskContainer = document.getElementById('task-list');
-var app = new TodoApp(appElement, taskContainer, taskList, store);
-
-app.render();
