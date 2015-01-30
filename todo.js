@@ -1,5 +1,3 @@
-"use strict";
-
 var TASKID = 1;
 
 function Task(name) {
