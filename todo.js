@@ -8,3 +8,8 @@ Task.prototype = {
     isComplete: false,
     createdAt: null
 };
+
+function TaskList(name) {
+    this.name = name;
+    this.tasks = [];
+}
