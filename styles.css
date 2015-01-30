@@ -1,0 +1,66 @@
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6em;
+    line-height: 1.5em; 
+    color: #333;
+    padding: 40px;
+}
+
+h1, h2 {
+    font-family: 'Roboto Slab', serif;
+    color: #333;
+    margin: 1em 0 0.5em; 
+}
+
+h1 { font-size: 2em; margin-top: 0; }
+h2 { font-size: 1.2em; }
+
+input[type="text"] {
+    font-size: 1em;
+    padding: 0.5em;
+    width: 100%;
+}
+
+#todo-app {
+    width: 30em;
+}
+
+.task {
+    border-bottom: 1px solid #999;
+    position: relative;
+}
+
+.task label {
+    line-height: 1.3em;
+    padding: 0.25em;
+    display: block;
+    cursor: pointer;
+}
+
+.task input[type="checkbox"] {
+    transform: scale(2);
+    margin-right: 1em;
+}
+
+.is-complete { 
+    text-decoration: line-through; 
+    font-style: italic; 
+    color: #999;
+}
+
+.btn-delete-task {
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    font-style: normal;
+    color: rgba(255, 0, 0, 0.8);
+    text-decoration: none;
+    position: absolute;
+    top: 0.25em;
+    right: 0.25em;
+}
+
+.btn-delete-task:hover {
+    opacity: 0.5;
+}
