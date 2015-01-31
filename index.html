@@ -17,7 +17,7 @@
 <script src="todo.js"></script>
 <script>
     var store = new TaskListStore('tasks');
-    var taskList = store.load('tasks');
+    var taskList = store.load();
     if (!taskList) {
         taskList = new TaskList('Things that need Doin');
     }
